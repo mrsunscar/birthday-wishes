@@ -15,6 +15,7 @@
             text-align: center;
             padding: 30px;
             overflow-x: hidden;
+            position: relative;
         }
 
         .container {
@@ -66,9 +67,10 @@
         .heart {
             position: absolute;
             font-size: 96px;
-            opacity: 0.2;
+            opacity: 0.7;
             z-index: 0;
             pointer-events: none;
+            transform: translate(-50%, -50%) scale(1);
             transition: transform 2s ease, opacity 2s ease;
         }
 
@@ -95,27 +97,6 @@
 </head>
 <body onclick="playAudio()">
     
-    <!-- 💗 HEART BACKGROUND ANIMATION -->
-    <script>
-        document.addEventListener('click', function (e) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerText = '💗';
-            heart.style.left = `${e.pageX - 48}px`;
-            heart.style.top = `${e.pageY - 48}px`;
-            document.body.appendChild(heart);
-
-            requestAnimationFrame(() => {
-                heart.style.transform = 'translateY(-120px) scale(0.7)';
-                heart.style.opacity = '0';
-            });
-
-            setTimeout(() => {
-                heart.remove();
-            }, 2000);
-        });
-    </script>
-
     <!-- 🎂 MAIN CONTENT -->
     <div class="container">
         <h1>Wishing the Happiest Birthday<br>to the Most Loved Person of My Life</h1>
@@ -182,7 +163,26 @@
             });
             document.body.onclick = null;
         }
-    </script>
 
+        // 💗 TAP-TO-POP HEART ANIMATION
+        document.addEventListener('click', function (e) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerText = '💗';
+            heart.style.left = `${e.pageX}px`;
+            heart.style.top = `${e.pageY}px`;
+            document.body.appendChild(heart);
+
+            // Start animation
+            requestAnimationFrame(() => {
+                heart.style.transform = 'translate(-50%, -200%) scale(0.7)';
+                heart.style.opacity = '0';
+            });
+
+            setTimeout(() => {
+                heart.remove();
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
