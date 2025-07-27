@@ -14,6 +14,7 @@
             color: #333;
             text-align: center;
             padding: 30px;
+            overflow-x: hidden;
         }
 
         .container {
@@ -23,6 +24,8 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -59,66 +62,68 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .heart {
+            position: absolute;
+            font-size: 96px;
+            opacity: 0.2;
+            z-index: 0;
+            pointer-events: none;
+            transition: transform 2s ease, opacity 2s ease;
+        }
+
+        .cake-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .cake-img {
+            width: 220px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
     </style>
 </head>
-<body>
+<body onclick="playAudio()">
+    
+    <!-- 💗 HEART BACKGROUND ANIMATION -->
     <script>
-  document.addEventListener('click', function (e) {
-    const heart = document.createElement('div');
-    heart.innerText = '💗';
-    heart.style.position = 'absolute';
-    heart.style.left = `${e.pageX - 48}px`; // Centering bigger heart
-    heart.style.top = `${e.pageY - 48}px`;
-    heart.style.fontSize = '96px'; // 4 times the size
-    heart.style.opacity = '0.3'; // Lighter look
-    heart.style.zIndex = '-1'; // Behind all content
-    heart.style.pointerEvents = 'none'; // Doesn't block clicks
-    heart.style.transition = 'transform 2s ease, opacity 2s ease';
-    heart.style.transform = 'translateY(-40px) scale(1.2)';
-    document.body.appendChild(heart);
+        document.addEventListener('click', function (e) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerText = '💗';
+            heart.style.left = `${e.pageX - 48}px`;
+            heart.style.top = `${e.pageY - 48}px`;
+            document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.style.opacity = '0';
-      heart.style.transform = 'translateY(-120px) scale(0.7)';
-    }, 100);
+            requestAnimationFrame(() => {
+                heart.style.transform = 'translateY(-120px) scale(0.7)';
+                heart.style.opacity = '0';
+            });
 
-    setTimeout(() => {
-      heart.remove();
-    }, 2000);
-  });
-</script>
+            setTimeout(() => {
+                heart.remove();
+            }, 2000);
+        });
+    </script>
 
-
-
+    <!-- 🎂 MAIN CONTENT -->
     <div class="container">
         <h1>Wishing the Happiest Birthday<br>to the Most Loved Person of My Life</h1>
         <h2>To You, Pranjal 🎀</h2>
 
         <div class="cake-container">
-  <img src="cake.png" alt="Heart Shaped Cake" class="cake-img">
-</div>
-
-<style>
-  .cake-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-  }
-
-  .cake-img {
-    width: 220px;
-    animation: bounce 2s infinite ease-in-out;
-  }
-
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-</style>
+            <img src="cake.png" alt="Heart Shaped Cake" class="cake-img">
+        </div>
 
         <div class="poem">
             <p>
@@ -160,26 +165,24 @@
         <img src="photo3.jpg" alt="Photo 3">
         <img src="photo4.jpg" alt="Photo 4">
 
-
         <p>Wishing you endless joy, love, and laughter — today and always.</p>
     </div>
-    <body onclick="playAudio()">
-  <!-- बाकी तुमचं HTML इथे येईल -->
 
-  <audio id="bgAudio" loop>
-    <source src="tola.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+    <!-- 🔊 BACKGROUND MUSIC -->
+    <audio id="bgAudio" loop>
+        <source src="tola.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-  <script>
-    function playAudio() {
-      var audio = document.getElementById("bgAudio");
-      audio.play().catch(function (error) {
-        console.log("Autoplay blocked even after tap:", error);
-      });
-      // Once played, remove the onclick to avoid multiple calls
-      document.body.onclick = null;
-    }
-  </script>
+    <script>
+        function playAudio() {
+            var audio = document.getElementById("bgAudio");
+            audio.play().catch(function (error) {
+                console.log("Autoplay blocked even after tap:", error);
+            });
+            document.body.onclick = null;
+        }
+    </script>
+
 </body>
 </html>
