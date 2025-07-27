@@ -65,26 +65,29 @@
     <script>
   document.addEventListener('click', function (e) {
     const heart = document.createElement('div');
-    heart.innerText = '💖';
+    heart.innerText = '💗';
     heart.style.position = 'absolute';
-    heart.style.left = `${e.pageX - 10}px`;
-    heart.style.top = `${e.pageY - 10}px`;
-    heart.style.fontSize = '24px';
-    heart.style.opacity = '1';
-    heart.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
-    heart.style.transform = 'translateY(-40px) scale(1.5)';
+    heart.style.left = `${e.pageX - 48}px`; // Centering bigger heart
+    heart.style.top = `${e.pageY - 48}px`;
+    heart.style.fontSize = '96px'; // 4 times the size
+    heart.style.opacity = '0.3'; // Lighter look
+    heart.style.zIndex = '-1'; // Behind all content
+    heart.style.pointerEvents = 'none'; // Doesn't block clicks
+    heart.style.transition = 'transform 2s ease, opacity 2s ease';
+    heart.style.transform = 'translateY(-40px) scale(1.2)';
     document.body.appendChild(heart);
 
     setTimeout(() => {
       heart.style.opacity = '0';
-      heart.style.transform = 'translateY(-80px) scale(0.5)';
-    }, 50);
+      heart.style.transform = 'translateY(-120px) scale(0.7)';
+    }, 100);
 
     setTimeout(() => {
       heart.remove();
-    }, 900);
+    }, 2000);
   });
 </script>
+
 
 
     <div class="container">
